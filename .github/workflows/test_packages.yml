@@ -8,8 +8,16 @@ on:
       [ main ]
 jobs:
   test-packages:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
 
+    name: Test packages on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    env:
+      CARGO_INCREMENTAL: 0
+    
     steps:
     - name: Checkout packages repository
       uses: actions/checkout@v4
@@ -22,6 +30,8 @@ jobs:
 
     - name: Install Rust
       run: rustup update
+
+    - uses: Swatinem/rust-cache@v2
 
     - name: Build Tangram
       run: cargo build --release --manifest-path tangram/Cargo.toml
