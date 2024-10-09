@@ -19,9 +19,12 @@ jobs:
       with:
         repository: tangramdotdev/tangram
         path: tangram
-      run: |
-        rustup update
-        cargo build --release --manifest-path tangram/Cargo.toml
+
+    - name: Install Rust
+      run: rustup update
+
+    - name: Build Tangram
+      run: cargo build --release --manifest-path tangram/Cargo.toml
 
     - name: Verify Tangram works
       run: tg --version
