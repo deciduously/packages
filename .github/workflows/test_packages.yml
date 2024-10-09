@@ -33,6 +33,7 @@ jobs:
 
     - uses: Swatinem/rust-cache@v2
       with:
+        cache-on-failure: "true"
         workspaces: "tangram"
 
     - name: Install Bun
@@ -50,3 +51,6 @@ jobs:
 
     - name: Verify Tangram works
       run: tg --version
+
+    - name: Build Package Test Targets
+      run: bun test

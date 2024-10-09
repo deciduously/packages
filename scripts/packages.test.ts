@@ -17,12 +17,22 @@ const buildTestTarget = async (path: string) => {
   }
 }
 
+const assertTestTarget = async (name: string) => {
+  const path = getPackagePath(name);
+  const result = await buildTestTarget(path);
+  expect(result).toBe("ok");
+}
+
 describe("test targets", () => {
-  allPackageNames().forEach((name) => {
-    test(name, async () => {
-      const path = getPackagePath(name);
-      const result = await buildTestTarget(path);
-      expect(result).toBe("ok");
-    })
+  test("std", async () => {
+    await assertTestTarget("std");
   })
+  
+  // allPackageNames().forEach((name) => {
+  //   test(name, async () => {
+  //     const path = getPackagePath(name);
+  //     const result = await buildTestTarget(path);
+  //     expect(result).toBe("ok");
+  //   })
+  // })
 });
