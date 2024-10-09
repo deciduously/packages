@@ -42,7 +42,9 @@ jobs:
       run: cd tangram && bun install --frozen-lockfile
 
     - name: Build Tangram
-      run: cargo build --release --manifest-path tangram/Cargo.toml
+      run: |
+        cargo build --release --manifest-path tangram/Cargo.toml
+        echo "$PWD/target/release" >> $GITHUB_PATH
 
     - name: Verify Tangram works
       run: tg --version
