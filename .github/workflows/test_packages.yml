@@ -32,6 +32,8 @@ jobs:
       run: rustup update
 
     - uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: "tangram"
 
     - name: Install Bun
       uses: oven-sh/setup-bun@v2
