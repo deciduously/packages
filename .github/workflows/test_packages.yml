@@ -33,6 +33,14 @@ jobs:
 
     - uses: Swatinem/rust-cache@v2
 
+    - name: Install Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install Dependencies
+      run: cd tangram && bun install --frozen-lockfile
+
     - name: Build Tangram
       run: cargo build --release --manifest-path tangram/Cargo.toml
 
