@@ -27,6 +27,12 @@ describe("test targets", () => {
   test("std", async () => {
     await assertTestTarget("std");
   })
+
+  // std
+
+  // packages that only depend on std (promise.all)
+
+  // everyone else.
   
   // allPackageNames().forEach((name) => {
   //   test(name, async () => {
