@@ -35,7 +35,7 @@ jobs:
           EOF
           cat > "$TANGRAM_CI_DIR/bin/tangram" << 'EOF'
           #!/bin/sh
-          exec tangram --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
+          exec tangram -m server --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
           EOF
           chmod +x "$TANGRAM_CI_DIR/bin/tangram"
 
@@ -69,7 +69,7 @@ jobs:
           EOF
           cat > "$TANGRAM_CI_DIR/bin/tangram" << 'EOF'
           #!/bin/sh
-          exec tangram --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
+          exec tangram -m server --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
           EOF
           chmod +x "$TANGRAM_CI_DIR/bin/tangram"
 
