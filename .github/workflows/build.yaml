@@ -43,12 +43,7 @@ jobs:
         if: matrix.enabled
         shell: bash
         run: |
-          "$TG_EXE" server start
-          while [ "$("$TG_EXE" server status)" != "started" ]; do
-            sleep 1
-          done
           bun run auto --test --sequential
-          "$TG_EXE" server stop
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -82,9 +77,4 @@ jobs:
         if: matrix.enabled
         shell: bash
         run: |
-          "$TG_EXE" server start
-          while [ "$("$TG_EXE" server status)" != "started" ]; do
-            sleep 1
-          done
           bun run auto --release --sequential
-          "$TG_EXE" server stop
