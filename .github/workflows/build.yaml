@@ -35,9 +35,10 @@ jobs:
           EOF
           cat > "$TANGRAM_CI_DIR/bin/tangram" << 'EOF'
           #!/bin/sh
-          exec tangram -m server --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
+          exec tangram --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
           EOF
           chmod +x "$TANGRAM_CI_DIR/bin/tangram"
+          "$TANGRAM_CI_DIR"/bin/tangram serve
 
       - name: Test packages
         if: matrix.enabled
@@ -69,7 +70,7 @@ jobs:
           EOF
           cat > "$TANGRAM_CI_DIR/bin/tangram" << 'EOF'
           #!/bin/sh
-          exec tangram -m server --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
+          exec tangram --directory "$TANGRAM_CI_DIR" --config "$TANGRAM_CI_DIR/config.json" "$@"
           EOF
           chmod +x "$TANGRAM_CI_DIR/bin/tangram"
 
