@@ -1,12 +1,8 @@
 name: Build Packages
 
 on:
-  workflow_dispatch:
-    inputs:
-      pr_number:
-        description: "PR number to build and release"
-        required: true
-        type: number
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: ["main"]
 
@@ -16,8 +12,9 @@ env:
 
 jobs:
   test:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'pull_request'
     runs-on: ${{ matrix.runner }}
+    environment: test
     strategy:
       matrix:
         include:
@@ -29,8 +26,6 @@ jobs:
     steps:
       - name: Check out packages repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
 
       - name: Configure Tangram
         run: |
@@ -56,8 +51,9 @@ jobs:
           "$TG_EXE" server stop
 
   release:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ${{ matrix.runner }}
+    environment: release
     strategy:
       matrix:
         include:
@@ -69,8 +65,6 @@ jobs:
     steps:
       - name: Check out packages repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || '' }}
 
       - name: Configure Tangram
         run: |
