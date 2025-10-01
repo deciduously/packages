@@ -7,8 +7,8 @@ on:
     branches: ["main"]
 
 env:
-  TANGRAM_CI_DIR: ${{ github.workspace }}/../.tangram-ci-${{ github.event.repository.name }}
-  TG_EXE: ${{ github.workspace }}/../.tangram-ci-${{ github.event.repository.name }}/bin/tangram
+  TANGRAM_CI_DIR: $HOME/.tangram-ci
+  TG_EXE: $HOME/.tangram-ci/bin/tangram
 
 jobs:
   test:
