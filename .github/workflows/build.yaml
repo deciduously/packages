@@ -1,12 +1,10 @@
 name: Build Packages
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
     inputs:
       pr_number:
-        description: 'PR number to build and release'
+        description: "PR number to build and release"
         required: true
         type: number
   push:
@@ -18,7 +16,7 @@ env:
 
 jobs:
   test:
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
@@ -26,13 +24,13 @@ jobs:
           - runner: [self-hosted, macOS, ARM64]
             enabled: true
           - runner: [self-hosted, Linux, X64]
-            enabled: false
+            enabled: true
 
     steps:
       - name: Check out packages repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || github.ref }}
+          ref: ${{ format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
 
       - name: Configure Tangram
         run: |
@@ -66,13 +64,13 @@ jobs:
           - runner: [self-hosted, macOS, ARM64]
             enabled: true
           - runner: [self-hosted, Linux, X64]
-            enabled: false
+            enabled: true
 
     steps:
       - name: Check out packages repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || github.ref }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || '' }}
 
       - name: Configure Tangram
         run: |
