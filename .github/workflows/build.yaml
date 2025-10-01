@@ -16,6 +16,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     environment: test
     strategy:
+      fail-fast: false
       matrix:
         include:
           - runner: [self-hosted, macOS, ARM64]
@@ -50,6 +51,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     environment: release
     strategy:
+      fail-fast: false
       matrix:
         include:
           - runner: [self-hosted, macOS, ARM64]
