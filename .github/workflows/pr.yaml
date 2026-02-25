@@ -13,7 +13,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - uses: ./.github/actions/setup-tangram
       - run: bun install --frozen-lockfile
-      - run: bun run auto --format --sequential
+      - run: bun run auto --format
       - name: Verify no formatting changes
         run: git diff --exit-code
 
@@ -36,4 +36,4 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - uses: ./.github/actions/setup-tangram
       - run: bun install --frozen-lockfile
-      - run: bun run auto --test --sequential
+      - run: bun run auto --test

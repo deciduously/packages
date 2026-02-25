@@ -35,4 +35,4 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - uses: ./.github/actions/setup-tangram
       - run: bun install --frozen-lockfile
-      - run: bun run auto --${{ inputs.action }} --sequential ${{ inputs.packages }}
+      - run: bun run auto --${{ inputs.action }} ${{ inputs.packages }}
