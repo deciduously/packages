@@ -6,9 +6,7 @@ runs:
   steps:
     - name: Create /opt/tangram directory
       shell: bash
-      run: |
-        sudo mkdir -p /opt/tangram/bin
-        sudo chown -R "$(whoami)" /opt/tangram
+      run: mkdir -p /opt/tangram/bin
 
     - name: Write config
       shell: bash
