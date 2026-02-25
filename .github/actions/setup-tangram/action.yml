@@ -10,16 +10,25 @@ runs:
         sudo mkdir -p /opt/tangram/bin
         sudo chown -R "$(whoami)" /opt/tangram
 
-    - name: Write empty config
+    - name: Write config
       shell: bash
-      run: echo '{}' > /opt/tangram/config.json
+      run: |
+        cat > /opt/tangram/config.json <<'CONFIG'
+        {
+          "directory": "/opt/tangram",
+          "remotes": [{
+            "name": "default",
+            "url": "https://staging.tangram.dev"
+          }]
+        }
+        CONFIG
 
     - name: Create tangram wrapper
       shell: bash
       run: |
         cat > /opt/tangram/bin/tangram <<'WRAPPER'
         #!/bin/sh
-        exec tangram --directory /opt/tangram --config /opt/tangram/config.json "$@"
+        exec tangram --config /opt/tangram/config.json "$@"
         WRAPPER
         chmod +x /opt/tangram/bin/tangram
 

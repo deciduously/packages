@@ -7,7 +7,7 @@ on:
 jobs:
   format:
     name: Format Check
-    runs-on: macos-latest-xlarge
+    runs-on: [self-hosted, macOS, ARM64]
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -26,9 +26,11 @@ jobs:
       matrix:
         include:
           - platform: aarch64-darwin
-            runner: macos-latest-xlarge
+            runner: [self-hosted, macOS, ARM64]
           - platform: x86_64-linux
-            runner: ubuntu-latest
+            runner: [self-hosted, Linux, X64]
+          - platform: aarch64-linux
+            runner: [self-hosted, Linux, ARM64]
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
